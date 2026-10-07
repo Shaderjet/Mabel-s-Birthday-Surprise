@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday, My Bebu 🩷</title>
+
+    <!-- Handwriting font for the final letter (falls back to a system script font if offline) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-y: auto;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #ffd6e7, #ffeaf3, #ffc1d9);
+            background-attachment: fixed;
+            color: #8b3158;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #ff8fbd;
+            filter: blur(150px);
+            opacity: 0.25;
+            top: -150px;
+            left: -150px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: #ff4f94;
+            filter: blur(150px);
+            opacity: 0.15;
+            bottom: -150px;
+            right: -150px;
+            pointer-events: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            position: relative;
+            z-index: 5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px 80px;
+        }
+
+        /* CARD */
+
+        .card {
+            width: min(94%, 480px);
+            margin-top: 6vh;
+            padding: 40px 26px 36px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(150, 40, 90, 0.18);
+        }
+
+        /* GREETING */
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(32px, 9vw, 46px);
+            line-height: 1.2;
+            color: #c73870;
+        }
+
+        .heart {
+            display: inline-block;
+        }
+
+        .message {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #74334f;
+            margin: 34px 4px 30px;
+        }
+
+        /* BUTTONS */
+
+        .birthday-btn {
+            border: none;
+            padding: 14px 26px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ff5795, #d93676);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(210, 45, 110, 0.3);
+            transition: 0.3s;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .birthday-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(210, 45, 110, 0.4);
+        }
+
+        .birthday-btn:active {
+            transform: scale(0.95);
+        }
+
+        .birthday-btn:focus-visible,
+        .music:focus-visible {
+            outline: 3px solid #8b3158;
+            outline-offset: 3px;
+        }
+
+        /* MUSIC STEP */
+
+        .music-step {
+            margin-top: 6px;
+        }
+
+        .music-note {
+            font-size: 34px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        /* SURPRISE CONTENT */
+
+        .section-title {
+            font-family: Georgia, serif;
+            font-size: 28px;
+            color: #c73870;
+            margin-bottom: 18px;
+        }
+
+        .section {
+            margin-top: 48px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 3px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #ff72aa, #ff9fc4);
+            margin: 0 auto 40px;
+        }
+
+        /* MEMORIES */
+
+        .memories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .memory {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(170, 45, 100, 0.22);
+            background: linear-gradient(135deg, #ffb3d1, #ffd6e7);
+        }
+
+        .memory:nth-child(odd)  { transform: rotate(-2deg); }
+        .memory:nth-child(even) { transform: rotate(2deg); }
+
+        .memory .placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .memory img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* LETTER */
+
+        .letter {
+            text-align: left;
+            background: #fffaf6;
+            border-radius: 18px;
+            padding: 28px 24px;
+            box-shadow: 0 10px 30px rgba(150, 40, 90, 0.15);
+            border: 1px solid rgba(255, 143, 189, 0.35);
+        }
+
+        .letter p {
+            font-family: Georgia, serif;
+            font-size: 16px;
+            line-height: 1.9;
+            color: #74334f;
+            margin-bottom: 14px;
+        }
+
+        .letter .greeting,
+        .letter .signature {
+            color: #a83265;
+            font-weight: bold;
+        }
+
+        .letter .signature {
+            margin-top: 22px;
+            margin-bottom: 0;
+        }
+
+        /* BOUQUET */
+
+        .bouquet-svg {
+            width: min(100%, 300px);
+            height: auto;
+            display: block;
+            margin: 6px auto 14px;
+            filter: drop-shadow(0 12px 18px rgba(150, 40, 90, 0.2));
+        }
+
+        .bouquet-text {
+            font-family: Georgia, serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #74334f;
+            margin: 0 6px;
+        }
+
+        .footer-heart {
+            margin-top: 34px;
+            font-size: 26px;
+        }
+
+        /* ENVELOPE + HANDWRITTEN LETTER */
+
+        .last-hint {
+            font-size: 14px;
+            color: #b24b76;
+            margin-top: -8px;
+        }
+
+        .envelope {
+            position: relative;
+            display: block;
+            width: 260px;
+            height: 170px;
+            margin: 80px auto 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            perspective: 800px;
+            transition: transform 0.3s;
+        }
+
+        .envelope:not(.open):hover {
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .envelope:focus-visible {
+            outline: 3px solid #8b3158;
+            outline-offset: 6px;
+        }
+
+        .env-back {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: #ff9fc4;
+            border-radius: 8px;
+            box-shadow: 0 12px 28px rgba(150, 40, 90, 0.25);
+        }
+
+        .env-paper {
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            top: 10px;
+            height: 140px;
+            z-index: 1;
+            background: #fffaf6;
+            border-radius: 6px;
+        }
+
+        .env-front {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(160deg, #ffc1d9, #ffb3d1);
+            border-radius: 8px;
+            clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .env-flap {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 58%;
+            z-index: 3;
+            background: #ff72aa;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+        }
+
+        .env-seal {
+            position: absolute;
+            left: calc(50% - 20px);
+            top: calc(58% - 20px);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            font-size: 28px;
+        }
+
+        .envelope.open {
+            cursor: default;
+        }
+
+        .handwritten {
+            position: relative;
+            text-align: left;
+            margin-top: 10px;
+            padding: 20px 22px 4px 34px;
+            background-color: #fffdf7;
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 31px,
+                rgba(255, 143, 189, 0.4) 31px,
+                rgba(255, 143, 189, 0.4) 32px
+            );
+            background-position: 0 20px;
+            border-radius: 6px;
+            border-left: 3px solid rgba(255, 100, 130, 0.45);
+            box-shadow: 0 14px 34px rgba(150, 40, 90, 0.22);
+            transform: rotate(-1deg);
+            scroll-margin-top: 24px;
+        }
+
+        .handwritten p {
+            font-family: "Caveat", "Segoe Script", "Bradley Hand", "Comic Sans MS", cursive;
+            font-weight: 500;
+            font-size: 23px;
+            line-height: 32px;
+            color: #33407a;
+            margin: 0 0 32px;
+        }
+
+        .handwritten .signature-hand {
+            text-align: right;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        /* LETTER OVERLAY */
+
+        .letter-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 76px 16px 28px;
+        }
+
+        .overlay-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(120, 30, 70, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .overlay-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.85);
+            color: #d93676;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(150, 40, 90, 0.2);
+        }
+
+        .overlay-close:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+        }
+
+        .letter-overlay .handwritten {
+            width: min(100%, 480px);
+            max-height: 100%;
+            margin-top: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            background-attachment: local;
+            transform: none;
+        }
+
+        .reopen-btn {
+            margin-top: 10px;
+        }
+
+        /* MUSIC BUTTON (corner) */
+
+        .music {
+            position: fixed;
+            z-index: 20;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.8);
+            color: #d93676;
+            font-size: 21px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(150, 40, 90, 0.15);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music.visible {
+            display: flex;
+        }
+
+        .music.playing {
+            animation: musicPulse 1.2s infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* FLOWERS (floating background) */
+
+        .flower {
+            position: fixed;
+            z-index: 2;
+            bottom: -100px;
+            pointer-events: none;
+        }
+
+        .tulip {
+            width: 45px;
+            height: 50px;
+            position: relative;
+        }
+
+        .tulip-head {
+            position: absolute;
+            width: 38px;
+            height: 35px;
+            background: #f4518d;
+            border-radius: 50% 50% 45% 45%;
+            left: 4px;
+            top: 0;
+            box-shadow: -10px 5px 0 #e9427d, 10px 5px 0 #ff6ca0;
+        }
+
+        .tulip-stem {
+            position: absolute;
+            width: 5px;
+            height: 35px;
+            background: #62a85a;
+            left: 20px;
+            top: 28px;
+            border-radius: 5px;
+        }
+
+        .tulip-leaf {
+            position: absolute;
+            width: 25px;
+            height: 12px;
+            background: #70b968;
+            border-radius: 100% 0 100% 0;
+            top: 48px;
+            left: 0;
+            transform: rotate(-25deg);
+        }
+
+        .carnation {
+            width: 55px;
+            height: 60px;
+            position: relative;
+        }
+
+        .carnation-head {
+            position: absolute;
+            width: 48px;
+            height: 43px;
+            top: 0;
+            left: 4px;
+            background: #ff76a8;
+            border-radius: 45% 55% 50% 50%;
+            box-shadow:
+                8px -3px 0 #ff8ab5,
+                -8px 4px 0 #ff5d98,
+                2px 7px 0 #ff679e;
+        }
+
+        .carnation-stem {
+            position: absolute;
+            width: 5px;
+            height: 35px;
+            background: #5b9c58;
+            left: 27px;
+            top: 35px;
+            border-radius: 5px;
+        }
+
+        /* FALLING PETALS */
+
+        .petal {
+            position: fixed;
+            top: -30px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .flower, .petal { display: none; }
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 32px 20px 30px;
+            }
+
+            .message {
+                font-size: 14px;
+            }
+
+            .letter {
+                padding: 24px 20px;
+            }
+
+            .letter p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MUSIC: put your song in the same folder, named birthday-song.mp3 (starts at 2:35 = 155 seconds) -->
+    <audio id="birthdayMusic" preload="auto">
+        <source src="birthday-song.mp3#t=155" type="audio/mpeg">
+    </audio>
+
+    <!-- Small play/pause button, shows up after the music starts -->
+    <button class="music" id="musicCorner" aria-label="Play or pause music">🎵</button>
+
+
+    <div class="container">
+
+        <div class="card">
+
+            <!-- 1. GREETING -->
+            <h1>
+                Happy Birthday, my bebu!
+                <span class="heart">🩷</span>
+            </h1>
+
+            <!-- 2. WISH -->
+            <p class="message">
+                I hope we could spend more birthdays together and make more
+                memories that we’ll look back on someday.
+
+                I hope you always remember how loved and special you are,
+                and I’ll always be grateful that I get to celebrate another
+                year of your life with you.
+
+                I love you so much, bebu 🩷
+            </p>
+
+            <!-- 3. TAP FOR A SURPRISE -->
+            <button class="birthday-btn" id="surpriseButton">
+                Tap for a surprise 🌷
+            </button>
+
+            <!-- 4. MUSIC BUTTON -->
+            <div class="music-step hidden fade-in" id="musicStep">
+                <div class="music-note">🎶</div>
+                <br>
+                <button class="birthday-btn" id="musicButton">
+                    Tap here, baby. I chose this song for you!
+                </button>
+            </div>
+
+            <!-- 5. THE SURPRISE -->
+            <div class="hidden fade-in" id="surpriseContent">
+
+                <div class="section">
+                    <div class="divider"></div>
+
+                    <!-- OUR MEMORIES: replace memory1.jpg ... memory4.jpg with your pictures -->
+                    <h2 class="section-title">Our memories 📸</h2>
+
+                    <div class="memories-grid">
+
+                        <div class="memory">
+                            <span class="placeholder">🩷</span>
+                            <img src="memory1.jpg" alt="Our memory 1" onerror="this.style.display='none'">
+                        </div>
+
+                        <div class="memory">
+                            <span class="placeholder">🌷</span>
+                            <img src="memory2.jpg" alt="Our memory 2" onerror="this.style.display='none'">
+                        </div>
+
+                        <div class="memory">
+                            <span class="placeholder">🌸</span>
+                            <img src="memory3.jpg" alt="Our memory 3" onerror="this.style.display='none'">
+                        </div>
+
+                        <div class="memory">
+                            <span class="placeholder">💗</span>
+                            <img src="memory4.jpg" alt="Our memory 4" onerror="this.style.display='none'">
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="section">
+                    <div class="divider"></div>
+
+                    <!-- LETTER: palitan mo na lang kung ano gusto mo -->
+                    <h2 class="section-title">A letter for you 💌</h2>
+
+                    <div class="letter">
+
+                        <p class="greeting">My dearest bebu,</p>
+
+                        <p>
+                            Happy birthday, my bebu!
+                            Today, I just want to remind you how grateful I am to have you in my life.
+                            Thank you for being you—for your patience, your kindness, your little ways
+                            of making me smile, and for all the moments you’ve shared with me.
+                        </p>
+
+                        <p>
+                            I appreciate everything you do, even the things you think are small,
+                            because they mean so much to me. I’m so proud of the person you’ve become,
+                            and I hope you know how loved and appreciated you are, not just today but every day.
+                        </p>
+
+                        <p>
+                            I appreciate everything you do, even the things you think are small,
+                            because they mean so much to me. I’m so proud of the person you’ve become,
+                            and I hope you know how loved and appreciated you are, not just today but every day.
+                        </p>
+
+                        <p>
+                            No matter what comes our way, I’ll always choose
+                            you.
+                        </p>
+
+                        <p>
+                            I love you so much, bebu. Happy birthday. 🩷
+                        </p>
+
+                        <p class="signature">
+                            Always yours,<br>
+                            Drei
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <!-- ANOTHER SURPRISE BUTTON -->
+                <div class="section" id="anotherStep">
+                    <div class="divider"></div>
+
+                    <button class="birthday-btn" id="anotherButton">
+                        Tap here for another surprise, babyyy!!
+                    </button>
+                </div>
+
+                <!-- BOUQUET (hidden until the button above is pressed) -->
+                <div class="section hidden fade-in" id="bouquetContent">
+                    <div class="divider"></div>
+
+                    <h2 class="section-title">These flowers are for you, bebu! 💐</h2>
+
+                    <!-- DIGITAL BOUQUET: tulips and carnations -->
+                    <svg class="bouquet-svg" viewBox="0 0 300 330" role="img" aria-label="A bouquet of pink tulips and carnations">
+
+                        <!-- stems -->
+                        <g stroke="#5b9c58" stroke-width="4" fill="none" stroke-linecap="round">
+                            <path d="M150 290 L150 82"/>
+                            <path d="M150 290 Q 120 200 100 137"/>
+                            <path d="M150 290 Q 180 200 200 137"/>
+                            <path d="M150 290 Q 90 230 62 165"/>
+                            <path d="M150 290 Q 210 230 238 165"/>
+                        </g>
+
+                        <!-- leaves -->
+                        <path d="M148 205 C118 198 100 178 96 166 C124 164 144 182 148 205Z" fill="#70b968"/>
+                        <path d="M152 205 C182 198 200 178 204 166 C176 164 156 182 152 205Z" fill="#70b968"/>
+                        <path d="M148 160 C130 150 124 132 126 122 C142 130 150 144 148 160Z" fill="#62a85a"/>
+                        <path d="M152 160 C170 150 176 132 174 122 C158 130 150 144 152 160Z" fill="#62a85a"/>
+
+                        <!-- tulip: center -->
+                        <g transform="translate(150,70)">
+                            <path d="M-24 -8 C-26 -30 -14 -40 -6 -44 C-2 -30 -2 -10 0 12 C-14 14 -24 6 -24 -8Z" fill="#e9427d"/>
+                            <path d="M24 -8 C26 -30 14 -40 6 -44 C2 -30 2 -10 0 12 C14 14 24 6 24 -8Z" fill="#ff6ca0"/>
+                            <path d="M-12 -6 C-12 -28 -2 -40 0 -46 C2 -40 12 -28 12 -6 C12 10 -12 10 -12 -6Z" fill="#f4518d"/>
+                        </g>
+
+                        <!-- tulip: far left -->
+                        <g transform="translate(62,153) rotate(-22)">
+                            <path d="M-24 -8 C-26 -30 -14 -40 -6 -44 C-2 -30 -2 -10 0 12 C-14 14 -24 6 -24 -8Z" fill="#e9427d"/>
+                            <path d="M24 -8 C26 -30 14 -40 6 -44 C2 -30 2 -10 0 12 C14 14 24 6 24 -8Z" fill="#ff6ca0"/>
+                            <path d="M-12 -6 C-12 -28 -2 -40 0 -46 C2 -40 12 -28 12 -6 C12 10 -12 10 -12 -6Z" fill="#f4518d"/>
+                        </g>
+
+                        <!-- tulip: far right -->
+                        <g transform="translate(238,153) rotate(22)">
+                            <path d="M-24 -8 C-26 -30 -14 -40 -6 -44 C-2 -30 -2 -10 0 12 C-14 14 -24 6 -24 -8Z" fill="#e9427d"/>
+                            <path d="M24 -8 C26 -30 14 -40 6 -44 C2 -30 2 -10 0 12 C14 14 24 6 24 -8Z" fill="#ff6ca0"/>
+                            <path d="M-12 -6 C-12 -28 -2 -40 0 -46 C2 -40 12 -28 12 -6 C12 10 -12 10 -12 -6Z" fill="#f4518d"/>
+                        </g>
+
+                        <!-- carnation: left -->
+                        <g transform="translate(100,115)">
+                            <path d="M-9 18 L0 30 L9 18Z" fill="#62a85a"/>
+                            <circle r="24" fill="#ff76a8"/>
+                            <circle cx="0"   cy="-19" r="10" fill="#ff8ab5"/>
+                            <circle cx="14"  cy="-13" r="10" fill="#ff8ab5"/>
+                            <circle cx="19"  cy="2"   r="10" fill="#ff8ab5"/>
+                            <circle cx="12"  cy="15"  r="10" fill="#ff8ab5"/>
+                            <circle cx="-12" cy="15"  r="10" fill="#ff8ab5"/>
+                            <circle cx="-19" cy="2"   r="10" fill="#ff8ab5"/>
+                            <circle cx="-14" cy="-13" r="10" fill="#ff8ab5"/>
+                            <circle r="15" fill="#ff5d98"/>
+                            <circle r="8" fill="#ff679e"/>
+                            <circle r="3" fill="#ffd6e7"/>
+                        </g>
+
+                        <!-- carnation: right -->
+                        <g transform="translate(200,115)">
+                            <path d="M-9 18 L0 30 L9 18Z" fill="#62a85a"/>
+                            <circle r="24" fill="#ff76a8"/>
+                            <circle cx="0"   cy="-19" r="10" fill="#ff8ab5"/>
+                            <circle cx="14"  cy="-13" r="10" fill="#ff8ab5"/>
+                            <circle cx="19"  cy="2"   r="10" fill="#ff8ab5"/>
+                            <circle cx="12"  cy="15"  r="10" fill="#ff8ab5"/>
+                            <circle cx="-12" cy="15"  r="10" fill="#ff8ab5"/>
+                            <circle cx="-19" cy="2"   r="10" fill="#ff8ab5"/>
+                            <circle cx="-14" cy="-13" r="10" fill="#ff8ab5"/>
+                            <circle r="15" fill="#ff5d98"/>
+                            <circle r="8" fill="#ff679e"/>
+                            <circle r="3" fill="#ffd6e7"/>
+                        </g>
+
+                        <!-- wrapping paper -->
+                        <path d="M86 214 L214 214 L170 314 L130 314Z" fill="#ffc1d9" stroke="#ff8fbd" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M86 214 L150 232 L130 314Z" fill="#ffe0ec" opacity="0.8"/>
+
+                        <!-- ribbon bow -->
+                        <g transform="translate(150,240)">
+                            <path d="M0 0 C-30 -18 -34 14 0 0Z" fill="#d93676"/>
+                            <path d="M0 0 C30 -18 34 14 0 0Z" fill="#d93676"/>
+                            <path d="M-2 4 L-14 34 L-4 28 L0 38Z" fill="#c73870"/>
+                            <path d="M2 4 L14 34 L4 28 L0 38Z" fill="#c73870"/>
+                            <circle r="6" fill="#ff5795"/>
+                        </g>
+
+                    </svg>
+
+                    <p class="bouquet-text">
+                        I wish I could give you these in person, but until then,
+                        here's a little bouquet made just for you.
+                    </p>
+
+                    <!-- ONE LAST THING: envelope + final handwritten letter -->
+                    <div class="section">
+                        <div class="divider"></div>
+
+                        <h2 class="section-title">One last thing, baby! 💌</h2>
+                        <p class="last-hint">Tap the envelope</p>
+
+                        <button class="envelope" id="envelope" aria-label="Open the envelope">
+                            <div class="env-back"></div>
+                            <div class="env-paper"></div>
+                            <div class="env-front"></div>
+                            <div class="env-flap"></div>
+                            <span class="env-seal">🩷</span>
+                        </button>
+
+                        <button class="birthday-btn reopen-btn hidden" id="reopenLetter">Read the letter again 💌</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FINAL LETTER OVERLAY: palitan mo na lang kung ano gusto mo -->
+    <div class="letter-overlay hidden" id="letterOverlay" role="dialog" aria-modal="true" aria-label="A letter for you">
+        <div class="overlay-backdrop"></div>
+        <button class="overlay-close" id="letterClose" aria-label="Close the letter">✕</button>
+
+        <div class="handwritten" id="finalLetter">
+
+                            <p>
+                                Bebu,
+                            </p>
+
+                            <p>
+                                If you’re reading this, you made it to the very end! I saved this for the last because it’s the part I most want you to remember. Thank you for everything, baby. I may not say it much, so I’m saying it here where it can stay. You are my favorite person, my safe place, and my everything.
+                            </p>
+
+                            <p>
+                                Thank you for all the times we chose to stay and work things out, even when things weren’t easy. We’ve had problems, misunderstandings, tampuhan, and moments where we both got tired, but we still found our way back to each other. I’ll always be thankful for every problem we overcame together because they showed me that what we have is worth fighting for. I know we’re not perfect, but I love that we’re still learning, growing, and choosing each other along the way.
+                            </p>
+
+                            <p>
+                                Thank you for all the little things too—the random conversations, laughs, late night talks, and even the simple moments that probably didn’t seem like much at the time. You’ve given me so many memories that I’ll always keep close to my heart, and I hope we get to make so much more. I hope someday we can look back at this and smile, knowing that this was just one of the many birthdays we got to celebrate together.
+                            </p>
+
+                            <p>
+                                Happy birthday, my bebu. I hope you always remember how loved and special you are, not only today but every single day. I’m grateful that I get to celebrate another year of your life with you, and I hope I get to celebrate many more with you in the future. No matter how hard things get, I hope we never forget why we chose each other in the first place. I love you so much, baby. Thank you for being you, and thank you for being mine. 🩷
+                            </p>
+
+                        </div>
+
+    </div>
+
+
+    <!-- GSAP (loaded from cdnjs, needs internet) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <script>
+
+        const music = document.getElementById("birthdayMusic");
+        const musicButton = document.getElementById("musicButton");
+        const musicCorner = document.getElementById("musicCorner");
+        const surpriseButton = document.getElementById("surpriseButton");
+        const musicStep = document.getElementById("musicStep");
+        const surpriseContent = document.getElementById("surpriseContent");
+        const anotherButton = document.getElementById("anotherButton");
+        const anotherStep = document.getElementById("anotherStep");
+        const bouquetContent = document.getElementById("bouquetContent");
+        const envelope = document.getElementById("envelope");
+        const finalLetter = document.getElementById("finalLetter");
+
+        const START_TIME = 155; // 2:35 (change this number to start somewhere else)
+        let hasStarted = false;
+        let revealed = false;
+
+        /* Animate only if GSAP loaded and the person didn't ask for reduced motion */
+        const ANIMATE = typeof gsap !== "undefined" &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+        /* HELPERS */
+
+        // Show a hidden element, with a GSAP fade-up
+        function reveal(el) {
+            el.classList.remove("hidden");
+
+            if (!ANIMATE) return;
+
+            gsap.fromTo(el,
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 1, ease: "power3.out", clearProps: "transform,opacity" }
+            );
+        }
+
+        function scrollTo(el, block, delay) {
+            setTimeout(function () {
+                el.scrollIntoView({ behavior: "smooth", block: block });
+            }, delay || 0);
+        }
+
+
+        /* INTRO ANIMATION */
+
+        if (ANIMATE) {
+
+            gsap.from(".card", {
+                opacity: 0, y: 30, scale: 0.95,
+                duration: 1.2, ease: "power3.out",
+                clearProps: "transform,opacity"
+            });
+
+            gsap.from([".card h1", ".message", "#surpriseButton"], {
+                opacity: 0, y: 20,
+                duration: 0.9, stagger: 0.25, delay: 0.6, ease: "power2.out",
+                clearProps: "transform,opacity"
+            });
+
+            // heartbeat
+            gsap.to(".heart, .music-note", {
+                scale: 1.2, duration: 0.65,
+                repeat: -1, yoyo: true, ease: "sine.inOut"
+            });
+
+        }
+
+
+        /* STEP 1: "Tap for a surprise" -> shows the music button */
+
+        surpriseButton.addEventListener("click", function () {
+
+            function showMusic() {
+                surpriseButton.classList.add("hidden");
+                reveal(musicStep);
+                scrollTo(musicStep, "center", 100);
+            }
+
+            if (ANIMATE) {
+                gsap.to(surpriseButton, {
+                    scale: 0.85, opacity: 0, duration: 0.3,
+                    ease: "power2.in", onComplete: showMusic
+                });
+            } else {
+                showMusic();
+            }
+
+        });
+
+
+        /* STEP 2: music button -> plays the song from 2:35 and shows the surprise */
+
+        musicButton.addEventListener("click", function () {
+
+            if (music.paused) {
+
+                if (!hasStarted) {
+                    try { music.currentTime = START_TIME; } catch (e) {}
+                    hasStarted = true;
+                }
+
+                music.play().catch(function () {
+                    console.log("Could not play the music.");
+                });
+
+            } else {
+                music.pause();
+            }
+
+            if (!revealed) {
+
+                revealed = true;
+
+                reveal(surpriseContent);
+
+                // photos pop in one by one
+                if (ANIMATE) {
+                    gsap.from(".memory", {
+                        opacity: 0, y: 40, scale: 0.8,
+                        duration: 0.8, stagger: 0.15, delay: 0.5,
+                        ease: "back.out(1.6)", clearProps: "opacity"
+                    });
+                }
+
+                scrollTo(surpriseContent, "start", 300);
+
+            }
+
+        });
+
+
+        /* When the song ends, restart from 2:35 instead of 0:00 */
+
+        music.addEventListener("ended", function () {
+            music.currentTime = START_TIME;
+            music.play().catch(function () {});
+        });
+
+
+        /* STEP 3: "another surprise" -> bouquet blooms from the bottom */
+
+        anotherButton.addEventListener("click", function () {
+
+            anotherStep.classList.add("hidden");
+            reveal(bouquetContent);
+
+            if (ANIMATE) {
+                gsap.from(".bouquet-svg > *", {
+                    opacity: 0, scale: 0,
+                    svgOrigin: "150 290",
+                    duration: 0.9, stagger: 0.1, delay: 0.4,
+                    ease: "back.out(1.5)"
+                });
+            }
+
+            scrollTo(bouquetContent, "start", 200);
+
+        });
+
+
+        /* STEP 4: envelope opens, the paper slides out and grows into a full-screen letter overlay */
+
+        const letterOverlay = document.getElementById("letterOverlay");
+        const letterBackdrop = letterOverlay.querySelector(".overlay-backdrop");
+        const letterClose = document.getElementById("letterClose");
+        const reopenLetter = document.getElementById("reopenLetter");
+        const lastHint = document.querySelector(".last-hint");
+
+        const envFlap = envelope.querySelector(".env-flap");
+        const envPaper = envelope.querySelector(".env-paper");
+        const envSeal = envelope.querySelector(".env-seal");
+        const letterParas = finalLetter.querySelectorAll("p");
+
+        let overlayOpen = false;
+        let lastFocus = null;
+
+        // the seal gently pulses until it's tapped
+        const sealPulse = ANIMATE
+            ? gsap.to(envSeal, { scale: 1.2, duration: 0.7, repeat: -1, yoyo: true, ease: "sine.inOut" })
+            : null;
+
+
+        /* Opens the letter overlay. The paper grows out of sourceEl (the envelope paper or the button) */
+
+        function openLetter(sourceEl) {
+
+            overlayOpen = true;
+            lastFocus = document.activeElement;
+            document.body.style.overflow = "hidden";
+
+            letterOverlay.classList.remove("hidden");
+            finalLetter.scrollTop = 0;
+            letterClose.focus({ preventScroll: true });
+
+            if (!ANIMATE) return;
+
+            gsap.killTweensOf([letterBackdrop, finalLetter, letterParas, letterClose]);
+            gsap.set(finalLetter, { clearProps: "transform,opacity" });
+
+            // where the paper starts (source) and where it ends (centered on screen)
+            const from = sourceEl.getBoundingClientRect();
+            const to = finalLetter.getBoundingClientRect();
+
+            const dx = (from.left + from.width / 2) - (to.left + to.width / 2);
+            const dy = (from.top + from.height / 2) - (to.top + to.height / 2);
+
+            gsap.set(letterParas, { opacity: 0, y: 12 });
+            gsap.set(letterClose, { opacity: 0, scale: 0.6 });
+
+            gsap.timeline()
+                .fromTo(letterBackdrop,
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.6, ease: "power1.out" }, 0)
+                .fromTo(finalLetter,
+                    {
+                        x: dx, y: dy,
+                        scaleX: from.width / to.width,
+                        scaleY: from.height / to.height,
+                        rotation: -3,
+                        transformOrigin: "50% 50%"
+                    },
+                    {
+                        x: 0, y: 0, scaleX: 1, scaleY: 1, rotation: 0,
+                        duration: 0.9, ease: "power3.inOut"
+                    }, 0)
+                .to(letterClose, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 0.6)
+                .to(letterParas, {
+                    opacity: 1, y: 0,
+                    duration: 0.6, stagger: 0.35, ease: "power2.out"
+                }, 0.7);
+
+        }
+
+
+        /* Closes the letter overlay and offers a button to read it again */
+
+        function closeLetter() {
+
+            if (!overlayOpen) return;
+            overlayOpen = false;
+
+            function done() {
+                letterOverlay.classList.add("hidden");
+                document.body.style.overflow = "";
+                reveal(reopenLetter);
+                if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+            }
+
+            if (!ANIMATE) {
+                done();
+                return;
+            }
+
+            gsap.timeline({ onComplete: done })
+                .to(letterClose, { opacity: 0, duration: 0.2 }, 0)
+                .to(letterParas, { opacity: 0, duration: 0.25 }, 0)
+                .to(finalLetter, { scale: 0.85, y: 40, opacity: 0, duration: 0.5, ease: "power2.in" }, 0.1)
+                .to(letterBackdrop, { opacity: 0, duration: 0.5 }, 0.2);
+
+        }
+
+        letterClose.addEventListener("click", closeLetter);
+
+        // tapping the dark area outside the paper closes it too
+        letterOverlay.addEventListener("click", function (e) {
+            if (!finalLetter.contains(e.target) && e.target !== letterClose) closeLetter();
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closeLetter();
+        });
+
+        reopenLetter.addEventListener("click", function () {
+            reopenLetter.classList.add("hidden");
+            openLetter(reopenLetter);
+        });
+
+
+        /* Envelope click */
+
+        envelope.addEventListener("click", function () {
+
+            if (envelope.classList.contains("open")) return;
+
+            envelope.classList.add("open");
+            lastHint.classList.add("hidden");
+
+            // no GSAP: just show the letter
+            if (!ANIMATE) {
+                envelope.classList.add("hidden");
+                openLetter(envelope);
+                return;
+            }
+
+            sealPulse.kill();
+
+            gsap.timeline()
+
+                // 1. seal pops, flap opens
+                .to(envSeal, { scale: 1.6, opacity: 0, duration: 0.35, ease: "power2.in" })
+                .to(envFlap, {
+                    rotationX: 180, transformOrigin: "50% 0%",
+                    duration: 0.7, ease: "power2.inOut"
+                }, "-=0.1")
+                .set(envFlap, { zIndex: 0 }, "-=0.35")
+
+                // 2. paper slides out of the envelope
+                .to(envPaper, { y: -95, duration: 0.9, ease: "power2.out" }, "-=0.1")
+
+                // 3. the paper transforms into the full-screen letter
+                .add(function () {
+                    openLetter(envPaper);
+                    gsap.set(envPaper, { opacity: 0 });
+                }, "+=0.25")
+
+                // 4. the empty envelope fades away behind the overlay
+                .to(envelope, {
+                    opacity: 0, height: 0, marginTop: 0, marginBottom: 0,
+                    duration: 0.6, ease: "power2.inOut"
+                }, "+=0.3");
+
+        });
+
+
+        /* CORNER BUTTON: play / pause anytime */
+
+        musicCorner.addEventListener("click", function () {
+
+            if (music.paused) {
+                music.play().catch(function () {});
+            } else {
+                music.pause();
+            }
+
+        });
+
+
+        /* KEEP BUTTONS IN SYNC WITH THE MUSIC */
+
+        music.addEventListener("play", function () {
+
+            musicCorner.classList.add("visible", "playing");
+            musicCorner.textContent = "🎵";
+
+            musicButton.textContent = "Now playing 🎵 (tap to pause)";
+
+        });
+
+        music.addEventListener("pause", function () {
+
+            musicCorner.classList.remove("playing");
+            musicCorner.textContent = "🔇";
+
+            musicButton.textContent = "Music paused (tap to play)";
+
+        });
+
+
+        /* FLOATING FLOWERS (GSAP) */
+
+        function createFlower() {
+
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+
+            const type = Math.random() > 0.5 ? "tulip" : "carnation";
+
+            if (type === "tulip") {
+
+                flower.innerHTML = `
+                    <div class="tulip">
+                        <div class="tulip-head"></div>
+                        <div class="tulip-stem"></div>
+                        <div class="tulip-leaf"></div>
+                    </div>
+                `;
+
+            } else {
+
+                flower.innerHTML = `
+                    <div class="carnation">
+                        <div class="carnation-head"></div>
+                        <div class="carnation-stem"></div>
+                    </div>
+                `;
+
+            }
+
+            flower.style.left = Math.random() * 100 + "vw";
+            document.body.appendChild(flower);
+
+            const duration = 8 + Math.random() * 8;
+
+            gsap.set(flower, { scale: 0.6 + Math.random() * 0.6, opacity: 0 });
+
+            // float up and spin
+            gsap.to(flower, {
+                y: -window.innerHeight * 1.2,
+                rotation: 360,
+                duration: duration,
+                ease: "none",
+                onComplete: function () { flower.remove(); }
+            });
+
+            // fade in, then out
+            gsap.timeline()
+                .to(flower, { opacity: 1, duration: duration * 0.1 })
+                .to(flower, { opacity: 0, duration: duration * 0.1 }, duration * 0.9);
+
+        }
+
+
+        /* FALLING PETALS (GSAP) */
+
+        function createPetal() {
+
+            const petal = document.createElement("div");
+            petal.classList.add("petal");
+            petal.innerHTML = "🌸";
+
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.fontSize = 12 + Math.random() * 18 + "px";
+            petal.style.opacity = 0.4 + Math.random() * 0.6;
+
+            document.body.appendChild(petal);
+
+            gsap.to(petal, {
+                y: window.innerHeight * 1.1,
+                x: (Math.random() - 0.5) * 120,
+                rotation: 720,
+                duration: 5 + Math.random() * 6,
+                ease: "none",
+                onComplete: function () { petal.remove(); }
+            });
+
+        }
+
+
+        if (ANIMATE) {
+            setInterval(createFlower, 1800);
+            setInterval(createPetal, 500);
+        }
+
+    </script>
+
+</body>
+</html>
